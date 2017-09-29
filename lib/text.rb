@@ -31,4 +31,32 @@ class Text
   def header6_tags(input)
     "<h6>#{input[7..-1]}</h6>"
   end
+
+  def stronged_tags(input)
+    html = input.split.map do |e|
+      if e.include?("**")
+        "<strong>#{e[2..-3]}</strong>"
+      else
+        e
+      end
+    end
+    html.join(" ")
+  end
+
+  def emphasized_tags(input)
+    html = input.split.map do |e|
+      if e.start_with?("*")
+        "<em>#{e[1..-1]}"
+      elsif e.end_with?("*")
+        "#{e[0..-2]}</em>"
+      else
+        e
+      end
+    end
+    html.join(" ")
+  end
+
+  def unorderedlist_tags(input)
+    input
+  end
 end

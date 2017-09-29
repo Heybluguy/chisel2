@@ -69,4 +69,49 @@ class TestTest < MiniTest::Test
     assert_equal expected, text.header6_tags(input)
   end
 
+
+
+  def test_it_converts_to_stronged
+    text = Text.new
+    input = "My emphasized and **stronged** text is awesome."
+    expected = "My emphasized and <strong>stronged</strong> text is awesome."
+
+    assert_equal expected, text.stronged_tags(input)
+  end
+
+  def test_it_converts_to_emphasized
+    text = Text.new
+    input = "My *emphasized and stronged text* is awesome."
+    expected = "My <em>emphasized and stronged text</em> is awesome."
+
+    assert_equal expected, text.emphasized_tags(input)
+  end
+
+  def test_it_converts_to_emphasized_and_stronged
+    text = Text.new
+    input = "My *emphasized and **stronged** text* is awesome."
+    expected = "My *emphasized and <strong>stronged</strong> text* is awesome."
+
+    assert_equal expected, text.stronged_tags(input)
+
+    expected = "My <em>emphasized and <strong>stronged</strong> text</em> is awesome."
+
+    assert_equal expected, text.emphasized_tags(text.stronged_tags(input))
+  end
+
+  def test_it_converts_to_unordered_list
+    text = Text.new
+    input = "My favorite cuisines are: \n\n* Sushi\n* Barbeque\n* Mexican"
+    expected =
+        "<p>
+      My favorite cuisines are:
+    </p>
+
+    <ul>
+      <li>Sushi</li>
+      <li>Barbeque</li>
+      <li>Mexican</li>
+    </ul>"
+    assert_equal expected, text.unorderedlist_tags(input)
+  end
 end
