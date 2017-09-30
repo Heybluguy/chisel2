@@ -17,7 +17,7 @@ class TestTest < MiniTest::Test
     input =
     "This is the first line of the paragraph.\n This is the second line of the same paragraph."
     expected = "<p>This is the first line of the paragraph. This is the second line of the same paragraph.</p>"
-    # binding.pry
+
     assert_equal expected, text.single_break_paragraph_tags(input)
   end
 
@@ -99,19 +99,30 @@ class TestTest < MiniTest::Test
     assert_equal expected, text.emphasized_tags(text.stronged_tags(input))
   end
 
-  def test_it_converts_to_unordered_list
+  def test_it_converts_to_list_items
     text = Text.new
-    input = "My favorite cuisines are: \n\n* Sushi\n* Barbeque\n* Mexican"
-    expected =
-        "<p>
-      My favorite cuisines are:
-    </p>
+    input = "* Sushi\n* Barbeque\n* Mexican.\n"
+    expected ="<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican.</li>"
 
-    <ul>
-      <li>Sushi</li>
-      <li>Barbeque</li>
-      <li>Mexican</li>
-    </ul>"
-    assert_equal expected, text.unorderedlist_tags(input)
+    assert_equal expected, text.list_item_tags(input)
   end
+
+
+  def test_it_converts_to_unordered_list_items
+    text = Text.new
+    input = "<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican.</li>"
+    expected ="<ul>\n<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican.</li>\n</ul>"
+
+    assert_equal expected, text.unordered_list_tags(input)
+
+    input = "My favorite cuisines are:\n\n<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican.</li>"
+    expected ="<p>\nMy favorite cuisines are:\n</p>\n\n<ul>\n<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican.</li>\n</ul>"
+
+     assert_equal expected, text.unordered_list_tags(input)
+  end
+
+  
+
+
+
 end

@@ -56,7 +56,28 @@ class Text
     html.join(" ")
   end
 
-  def unorderedlist_tags(input)
-    input
-  end
+
+  def list_item_tags(input)
+      html = input.split("\n").map do |e|
+        if e.include?("* ")
+          "<li>#{e[2..-1]}</li>"
+        else
+          e
+        end
+      end
+      html.join("\n")
+    end
+
+    def unordered_list_tags(input)
+      html = input.split("\n\n").map do |e|
+        if e.include?("<li>")
+          html = "<ul>\n#{e}\n</ul>"
+        else
+          "<p>\n#{e}\n</p>"
+        end
+      end
+      html.join("\n\n")
+    end
+
+
 end
