@@ -69,8 +69,6 @@ class TestTest < MiniTest::Test
     assert_equal expected, text.header6_tags(input)
   end
 
-
-
   def test_it_converts_to_stronged
     text = Text.new
     input = "My emphasized and **stronged** text is awesome."
@@ -99,50 +97,30 @@ class TestTest < MiniTest::Test
     assert_equal expected, text.emphasized_tags(text.stronged_tags(input))
   end
 
-  def test_it_converts_to_list_items
+  def test_it_converts_to_unordered_list
     text = Text.new
-    input = "* Sushi\n* Barbeque\n* Mexican.\n"
-    expected ="<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican.</li>"
+    input = "<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican</li>"
+    expected ="<ul>\n<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican</li>\n</ul>"
 
-    assert_equal expected, text.list_item_tags(input)
+    assert_equal expected, text.unordered_list(input)
 
-    input = "1. Sushi\n2. Barbeque\n3. Mexican.\n"
-    expected ="<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican.</li>"
+    input = "My favorite cuisines are:\n\n<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican</li>"
+    expected ="<p>\nMy favorite cuisines are:\n</p>\n\n<ul>\n<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican</li>\n</ul>"
 
-     assert_equal expected, text.list_item_tags(input)
-
+     assert_equal expected, text.unordered_list(input)
   end
 
-
-  def test_it_converts_to_unordered_list_items
+  def test_it_converts_to_ordered_list
     text = Text.new
-    input = "<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican.</li>"
-    expected ="<ul>\n<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican.</li>\n</ul>"
+    input = "1. Sushi\n2. Barbeque\n3. Mexican."
+    expected ="<ol>\n<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican.</li>\n</ol>"
 
-    assert_equal expected, text.unordered_list_tags(input)
+    assert_equal expected, text.ordered_list_item_tags(input)
 
-    input = "My favorite cuisines are:\n\n<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican.</li>"
-    expected ="<p>\nMy favorite cuisines are:\n</p>\n\n<ul>\n<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican.</li>\n</ul>"
+    input = "My favorite cuisines are:\n\n1. Sushi\n2. Barbeque\n3. Mexican"
+    expected ="<p>\nMy favorite cuisines are:\n</p>\n\n<ol>\n<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican</li>\n</ol>"
 
-     assert_equal expected, text.unordered_list_tags(input)
+    assert_equal expected, text.ordered_list_item_tags(input)
   end
-
-
-
-
-  # def test_it_converts_to_ordered_list_items
-  #   text = Text.new
-  #   input = "<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican.</li>"
-  #   expected ="<ol>\n<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican.</li>\n</ol>"
-  #
-  #   assert_equal expected, text.unordered_list_tags(input)
-  #
-  #   # input = "My favorite cuisines are:\n\n<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican.</li>"
-  #   # expected ="<p>\nMy favorite cuisines are:\n</p>\n\n<ul>\n<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican.</li>\n</ul>"
-  #   #
-  #   #  assert_equal expected, text.ordered_list_tags(input)
-  # end
-
-
 
 end
