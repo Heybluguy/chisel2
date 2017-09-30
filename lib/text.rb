@@ -1,4 +1,4 @@
-
+require 'pry'
 class Text
   def paragraph_tags(input)
     p_tags = input.split("\n\n").map do |line|
@@ -61,12 +61,15 @@ class Text
       html = input.split("\n").map do |e|
         if e.include?("* ")
           "<li>#{e[2..-1]}</li>"
+        elsif ("1".."10").include?(e[0])
+          "<li>#{e[3..-1]}</li>"
         else
           e
         end
       end
       html.join("\n")
     end
+
 
     def unordered_list_tags(input)
       html = input.split("\n\n").map do |e|

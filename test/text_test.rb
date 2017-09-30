@@ -105,6 +105,12 @@ class TestTest < MiniTest::Test
     expected ="<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican.</li>"
 
     assert_equal expected, text.list_item_tags(input)
+
+    input = "1. Sushi\n2. Barbeque\n3. Mexican.\n"
+    expected ="<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican.</li>"
+
+     assert_equal expected, text.list_item_tags(input)
+
   end
 
 
@@ -121,7 +127,21 @@ class TestTest < MiniTest::Test
      assert_equal expected, text.unordered_list_tags(input)
   end
 
-  
+
+
+
+  # def test_it_converts_to_ordered_list_items
+  #   text = Text.new
+  #   input = "<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican.</li>"
+  #   expected ="<ol>\n<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican.</li>\n</ol>"
+  #
+  #   assert_equal expected, text.unordered_list_tags(input)
+  #
+  #   # input = "My favorite cuisines are:\n\n<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican.</li>"
+  #   # expected ="<p>\nMy favorite cuisines are:\n</p>\n\n<ul>\n<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican.</li>\n</ul>"
+  #   #
+  #   #  assert_equal expected, text.ordered_list_tags(input)
+  # end
 
 
 
