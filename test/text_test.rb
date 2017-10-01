@@ -1,9 +1,7 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/text'
+require_relative 'test_helper'
 require 'pry'
 
-class TestTest < MiniTest::Test
+class TextTest < MiniTest::Test
   def test_it_converts_to_paragraph
     text = Text.new
     input = "This is the first line of the paragraph."
@@ -95,32 +93,6 @@ class TestTest < MiniTest::Test
     expected = "My <em>emphasized and <strong>stronged</strong> text</em> is awesome."
 
     assert_equal expected, text.emphasized_tags(text.stronged_tags(input))
-  end
-
-  def test_it_converts_to_unordered_list
-    text = Text.new
-    input = "<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican</li>"
-    expected ="<ul>\n<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican</li>\n</ul>"
-
-    assert_equal expected, text.unordered_list(input)
-
-    input = "My favorite cuisines are:\n\n<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican</li>"
-    expected ="<p>\nMy favorite cuisines are:\n</p>\n\n<ul>\n<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican</li>\n</ul>"
-
-     assert_equal expected, text.unordered_list(input)
-  end
-
-  def test_it_converts_to_ordered_list
-    text = Text.new
-    input = "1. Sushi\n2. Barbeque\n3. Mexican."
-    expected ="<ol>\n<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican.</li>\n</ol>"
-
-    assert_equal expected, text.ordered_list_item_tags(input)
-
-    input = "My favorite cuisines are:\n\n1. Sushi\n2. Barbeque\n3. Mexican"
-    expected ="<p>\nMy favorite cuisines are:\n</p>\n\n<ol>\n<li>Sushi</li>\n<li>Barbeque</li>\n<li>Mexican</li>\n</ol>"
-
-    assert_equal expected, text.ordered_list_item_tags(input)
   end
 
 end

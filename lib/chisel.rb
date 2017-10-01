@@ -1,5 +1,5 @@
-
 require_relative 'text'
+require_relative 'list'
 require 'pry'
 
 class Chisel
@@ -11,11 +11,15 @@ class Chisel
     @text = Text.new
   end
 
+def convert(input)
+  paragraph_tags(input)
 
+
+end
 end
 
 
-chisel = Chisel.new
-chisel.paragraph_tags(chisel.input)
+# chisel = Chisel.new
+# chisel.paragraph_tags(chisel.input)
 # binding.pry
 # my_output.write(my_input.upcase)
