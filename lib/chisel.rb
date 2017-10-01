@@ -1,6 +1,5 @@
 require_relative 'text'
 require_relative 'list'
-require 'pry'
 
 class Chisel
   attr_accessor :input, :output
@@ -31,7 +30,6 @@ class Chisel
     output.write(convert)
   end
 end
-
 
 chisel = Chisel.new
 chisel.write_output

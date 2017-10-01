@@ -1,5 +1,4 @@
 require_relative 'test_helper'
-require 'pry'
 
 class TextTest < MiniTest::Test
   def test_it_converts_to_paragraph
@@ -102,5 +101,4 @@ class TextTest < MiniTest::Test
 
     assert_equal expected, text.emphasized_tags(text.stronged_tags(input))
   end
-
 end

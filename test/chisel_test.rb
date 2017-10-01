@@ -1,5 +1,4 @@
 require_relative 'test_helper'
-require 'pry'
 
 class ChiselTest < MiniTest::Test
   def test_chisel_exists
@@ -13,6 +12,4 @@ class ChiselTest < MiniTest::Test
 
     assert_equal expected, chisel.convert(chisel.input)
   end
-
-
 end
