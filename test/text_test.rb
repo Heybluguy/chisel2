@@ -10,6 +10,14 @@ class TextTest < MiniTest::Test
     assert_equal expected, text.paragraph_tags(input)
   end
 
+  def test_it_converts_to_multiple_paragraphs
+    text = Text.new
+    input = "This is the first line of the first paragraph.\n\nThis is the first line of the second paragraph."
+    expected = "<p>This is the first line of the first paragraph.\n\nThis is the first line of the second paragraph.</p>"
+
+    assert_equal expected, text.paragraph_tags(input)
+  end
+
   def test_it_converts_to_paragraph_with_single_break
     text = Text.new
     input =
@@ -19,12 +27,12 @@ class TextTest < MiniTest::Test
     assert_equal expected, text.single_break_paragraph_tags(input)
   end
 
-  def test_it_converts_to_multiple_paragraphs
+  def test_it_converts_to_header1
     text = Text.new
-    input = "This is the first line of the paragraph."
-    expected = "<p>This is the first line of the paragraph.</p>"
+    input = "# Here's an H1"
+    expected = "<h1>Here's an H1</h1>"
 
-    assert_equal expected, text.paragraph_tags(input)
+    assert_equal expected, text.header1_tags(input)
   end
 
   def test_it_converts_to_header2

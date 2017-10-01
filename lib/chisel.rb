@@ -11,15 +11,25 @@ class Chisel
     @text = Text.new
   end
 
-def convert(input)
-  paragraph_tags(input)
+  def convert
+    conversion = @text.stronged_tags(@input)
+    conversion = @text.emphasized_tags(conversion)
+    conversion = @text.header6_tags(conversion)
+    conversion = @text.header5_tags(conversion)
+    conversion = @text.header4_tags(conversion)
+    conversion = @text.header3_tags(conversion)
+    conversion = @text.header2_tags(conversion)
+    conversion = @text.header1_tags(conversion)
+    conversion = @text.paragraph_tags(conversion)
+    conversion.gsub!("&", "&amp;")
+  end
 
-
+  def write_output
+    output.write(convert)
+  end
 end
-end
 
 
-# chisel = Chisel.new
-# chisel.paragraph_tags(chisel.input)
+chisel = Chisel.new
 # binding.pry
-# my_output.write(my_input.upcase)
+chisel.write_output
