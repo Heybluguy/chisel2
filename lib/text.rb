@@ -1,13 +1,5 @@
 class Text
   def paragraph_tags(input)
-    single_break_paragraph_tags(input)
-    p_tags = input.split("\n").map do |line|
-      "<p>#{line}</p>"
-    end
-    p_tags.join("\n")
-  end
-
-  def single_break_paragraph_tags(input)
     header = "<h"
     list1 = "<ul>"
     list2 = "<ol>"
@@ -15,7 +7,7 @@ class Text
       if line.include?(header) || line.include?(list1) || line.include?(list2)
         line
       else
-        "<p>#{line}</p>".delete("\n")
+        "<p>\n#{line}\n</p>"#.delete("\n")
       end
     end.join("\n\n")
   end
@@ -105,16 +97,18 @@ class Text
   end
 
   def emphasized_tags(input)
-    html = input.split.map do |e|
-      if e.start_with?("*")
-        "<em>#{e[1..-1]}"
-      elsif e.end_with?("*")
-        "#{e[0..-2]}</em>"
+    input.split("\n").map do |line|
+      if line.include?("*")
+        a = line.split.map do |word|
+          if word.include?("*")
+            "<em>#{word[1..-2]}</em>"
+          else
+            word
+          end
+        end.join(" ")
       else
-        e
+        line
       end
-    end
-    html.join(" ")
+    end.join("\n")
   end
-
 end

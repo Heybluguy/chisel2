@@ -1,44 +1,28 @@
 class List
-  def list_item_tags(input)
-    html = input.split("\n").map do |e|
-      if e.include?("* ")
-        "<ul>\n<li>#{e[2..-1]}</li>\n</ul>"
-      elsif ("1".."10").include?(e[0])
-        "<ul>\n<li>#{e[3..-1]}</li>\n</ul>"
-      else
-        e
-      end
-    end
-    html.join("\n")
-  end
 
   def ordered_list_item_tags(input)
-    html = input.split("\n").map do |e|
-      if ("0".."10").include?(e[0])
-        "<li>#{e[3..-1]}</li>"
+    input.split("\n\n").map do |e|
+      if e.start_with?("1")
+        ordered = e.split("\n").map do |list|
+          "<li>#{list[3..-1]}</li>"
+        end.join("\n")
+        "<ol>\n#{ordered}\n</ol>"
       else
         e
       end
-    end.join("\n")
-    html = html.split("\n\n").map do |e|
-      if e.include?("<li>")
-        "<ol>\n#{e}\n</ol>"
-      else
-        "<p>\n#{e}\n</p>"
-      end
-    end
-    html.join("\n\n")
+    end.join("\n\n")
   end
 
   def unordered_list(input)
-    html = input.split("\n\n").map do |e|
-      if e.include?("<li>")
-        "<ul>\n#{e}\n</ul>"
+    input.split("\n\n").map do |e|
+      if e.start_with?("*")
+        unordered = e.split("\n").map do |list|
+          "<li>#{list[2..-1]}</li>"
+        end.join("\n")
+        "<ul>\n#{unordered}\n</ul>"
       else
-        "<p>\n#{e}\n</p>"
+        e
       end
-    end
-    html.join("\n\n")
+    end.join("\n\n")
   end
-
 end
